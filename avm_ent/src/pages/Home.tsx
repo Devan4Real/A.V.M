@@ -3,31 +3,6 @@ import React from "react";
 const Home: React.FC = () => {
   return (
     <div className="bg-background text-foreground">
-      {/* Navbar */}
-      <nav className="fixed top-0 left-0 w-full bg-card shadow-md z-50">
-        <ul className="flex justify-center gap-6 py-4">
-          <li>
-            <a href="#home" className="hover:text-primary">
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="#about" className="hover:text-primary">
-              About Us
-            </a>
-          </li>
-          <li>
-            <a href="#services" className="hover:text-primary">
-              Services
-            </a>
-          </li>
-          <li>
-            <a href="#contact" className="hover:text-primary">
-              Contact
-            </a>
-          </li>
-        </ul>
-      </nav>
 
       {/* Sections */}
       <section
@@ -76,3 +51,4 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+
