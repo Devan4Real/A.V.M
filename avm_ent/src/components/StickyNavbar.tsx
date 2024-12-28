@@ -3,12 +3,12 @@ import React from 'react';
 const StickyNavbar: React.FC = () => {
   return (
     <nav className="sticky top-0 bg-[#1B2A4A] shadow-md z-50 py-0">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex items-center justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14">
           <div className="flex items-center">
             <div className="text-xl font-bold text-white">MyLogo</div>
             <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-4">
+              <div className="ml-10 flex items-baseline space-x-40 pl-40">
                 <a
                   href="#home"
                   className="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium"
