@@ -1,29 +1,41 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/About">About</Link>
-        </li>
-        <li>
-          <Link to="/Contact">Contact</Link>
-        </li>
-        <li>
-          <Link to="/Branch">Branch</Link>
-        </li>
-        <li>
-          <Link to="/Home">Home</Link>
-        </li>
-      </ul>
+    <nav className="bg-gray-800 p-4">
+      <div className="hidden md:flex items-center space-x-8">
+        <NavLink 
+          to="/" 
+          className={({ isActive }) => `text-white hover:text-gray-300 ${isActive ? 'underline' : ''}`}
+          end
+        >
+          Home
+        </NavLink>
+
+        <NavLink 
+          to="/Branch" 
+          className={({ isActive }) => `text-white hover:text-gray-300 ${isActive ? 'underline' : ''}`}
+        >
+          Our Branches
+        </NavLink>
+
+        <NavLink 
+          to="/About" 
+          className={({ isActive }) => `text-white hover:text-gray-300 ${isActive ? 'underline' : ''}`}
+        >
+          About Us
+        </NavLink>
+
+        <NavLink 
+          to="/Contact" 
+          className={({ isActive }) => `text-white hover:text-gray-300 ${isActive ? 'underline' : ''}`}
+        >
+          Contact Us
+        </NavLink>
+      </div>
     </nav>
   );
 };
 
 export default Navbar;
-

@@ -40,3 +40,43 @@
 .read-the-docs {
   color: #888;
 }
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 10px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: white;
+}
+
+nav ul li a.active {
+  font-weight: bold;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.bg-navy {
+  background-color: #1B2A4A;
+}
+
+.text-white {
+  color: white;
+}
+
+.content {
+  padding: 20px;
+}
+
+.section {
+  padding: 20px;
+  min-height: 100vh;
+}

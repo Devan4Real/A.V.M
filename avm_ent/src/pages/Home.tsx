@@ -1,41 +1,18 @@
-import { Canvas } from '@react-three/fiber';
-import { Text3D, OrbitControls } from '@react-three/drei';
+import './Home.css';
+import { Link } from 'react-router-dom';
 
-const Logo3D = () => {
+const Home: React.FC = () => {
   return (
-    <Canvas camera={{ position: [0, 0, 10], fov: 50 }}>
-      <ambientLight intensity={0.5} />
-      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} />
-      <Text3D
-        font="/fonts/Geist_Bold.json"
-        size={3}
-        height={0.2}
-        curveSegments={12}
-        bevelEnabled
-        bevelThickness={0.02}
-        bevelSize={0.02}
-        bevelOffset={0}
-        bevelSegments={5}
-      >
-        AVM
-        <meshStandardMaterial color="#C4A484" metalness={0.8} roughness={0.2} />
-      </Text3D>
-      <OrbitControls enableZoom={false} enablePan={false} />
-    </Canvas>
-  );
-};
-
-const Home = () => {
-  return (
-    <div className="min-h-screen bg-[#1B2A4A] flex flex-col">
-      <div className="flex-grow flex items-center justify-center">
-        <div className="w-full h-[60vh]">
-          <Logo3D />
-        </div>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+      <h1 className="text-5xl font-bold text-gray-800">Welcome to A.V.M Enterprises</h1>
+      <p className="mt-4 text-lg text-gray-600">We provide innovative solutions for businesses across various industries.</p>
+      <div className="mt-6">
+        <Link to="/about" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">
+          Learn More
+        </Link>
       </div>
     </div>
   );
 };
 
 export default Home;
-
