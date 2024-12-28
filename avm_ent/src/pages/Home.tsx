@@ -1,16 +1,76 @@
-import './Home.css';
-import { Link } from 'react-router-dom';
+import React from "react";
 
 const Home: React.FC = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
-      <h1 className="text-5xl font-bold text-gray-800">Welcome to A.V.M Enterprises</h1>
-      <p className="mt-4 text-lg text-gray-600">We provide innovative solutions for businesses across various industries.</p>
-      <div className="mt-6">
-        <Link to="/about" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">
-          Learn More
-        </Link>
-      </div>
+    <div className="bg-background text-foreground">
+      {/* Navbar */}
+      <nav className="fixed top-0 left-0 w-full bg-card shadow-md z-50">
+        <ul className="flex justify-center gap-6 py-4">
+          <li>
+            <a href="#home" className="hover:text-primary">
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="#about" className="hover:text-primary">
+              About Us
+            </a>
+          </li>
+          <li>
+            <a href="#services" className="hover:text-primary">
+              Services
+            </a>
+          </li>
+          <li>
+            <a href="#contact" className="hover:text-primary">
+              Contact
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      {/* Sections */}
+      <section
+        id="home"
+        className="h-screen flex items-center justify-center bg-background"
+      >
+        <h1 className="text-5xl font-bold">Welcome to Our SPA</h1>
+      </section>
+
+      <section
+        id="about"
+        className="h-screen flex flex-col items-center justify-center bg-card"
+      >
+        <h1 className="text-4xl font-bold">About Us</h1>
+        <p className="text-lg mt-4 text-center">
+          Learn more about what we do and why we do it.
+        </p>
+      </section>
+
+      <section
+        id="services"
+        className="h-screen flex flex-col items-center justify-center bg-muted"
+      >
+        <h1 className="text-4xl font-bold">Our Services</h1>
+        <p className="text-lg mt-4 text-center">
+          Discover the amazing services we offer.
+        </p>
+      </section>
+
+      <section
+        id="contact"
+        className="h-screen flex flex-col items-center justify-center bg-accent"
+      >
+        <h1 className="text-4xl font-bold">Contact Us</h1>
+        <p className="text-lg mt-4 text-center">
+          Get in touch with us for more information.
+        </p>
+      </section>
+
+      {/* Footer */}
+      <footer className="w-full py-4 bg-card text-center">
+        <p className="text-sm">&copy; 2024 Your Company Name. All rights reserved.</p>
+      </footer>
     </div>
   );
 };

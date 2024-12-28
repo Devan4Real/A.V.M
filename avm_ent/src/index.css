@@ -122,5 +122,9 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+  html {
+    scroll-behavior: smooth; /* For browsers that don't support Tailwind's utility */
+  }
+  
 }
 
