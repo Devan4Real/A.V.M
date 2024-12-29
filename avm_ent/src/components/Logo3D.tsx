@@ -1,60 +1,83 @@
-import { useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Text3D, OrbitControls } from '@react-three/drei';
+import React, { useRef, useEffect } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
+import {Environment } from '@react-three/drei';
 
-function Logo() {
-  const meshRef = useRef<THREE.Mesh>(null!);
+interface MousePosition {
+  x: number;
+  y: number;
+}
 
-  useFrame((state) => {
-    const time = state.clock.getElapsedTime();
-    if (meshRef.current) {
-      meshRef.current.rotation.y = Math.sin(time / 4) * 0.2;
+function Model({ mousePosition }) {
+  const gltf = useGLTF('/AVM-logo.glb');
+  const modelRef = useRef();
+
+  // Fix material encoding
+  useEffect(() => {
+    gltf.scene.traverse((child) => {
+      if (child.isMesh && child.material) {
+        child.material.side = THREE.DoubleSide; // Optional: If faces are missing
+        if (child.material.map) {
+          child.material.map.encoding = THREE.sRGBEncoding;
+        }
+        if (child.material.emissiveMap) {
+          child.material.emissiveMap.encoding = THREE.sRGBEncoding;
+        }
+      }
+    });
+  }, [gltf]);
+
+  useFrame(() => {
+    if (modelRef.current) {
+      modelRef.current.rotation.x = mousePosition.y * 0.1;
+      modelRef.current.rotation.y = mousePosition.x * 0.1;
     }
   });
 
+  return <primitive object={gltf.scene} ref={modelRef} />;
+}
+
+function Scene({ mousePosition }) {
+  const { camera } = useThree();
+
+  useEffect(() => {
+    camera.position.z = 5;
+  }, [camera]);
+
   return (
-    <mesh ref={meshRef}>
-      <Text3D
-        font="/fonts/Geist_Bold.json"
-        size={3}
-        height={0.2}
-        curveSegments={12}
-        bevelEnabled
-        bevelThickness={0.02}
-        bevelSize={0.02}
-        bevelOffset={0}
-        bevelSegments={5}
-      >
-        AVM
-        <meshStandardMaterial
-          color="#C4A484"
-          metalness={0.8}
-          roughness={0.2}
-        />
-      </Text3D>
-    </mesh>
+    <>
+      <ambientLight intensity={0.5} />
+      <pointLight position={[10, 10, 10]} />
+      <Environment preset="sunset" />
+      <Model mousePosition={mousePosition} />
+    </>
   );
 }
 
 export default function Logo3D() {
+  const [mousePosition, setMousePosition] = React.useState<MousePosition>({ x: 0, y: 0 });
+
+  const handleMouseMove = (event: React.MouseEvent) => {
+    setMousePosition({
+      x: (event.clientX / window.innerWidth) * 2 - 1,
+      y: -(event.clientY / window.innerHeight) * 2 + 1,
+    });
+  };
+
   return (
-    <div className="h-[80vh] w-full bg-gradient-to-b from-[#1B2A4A] to-[#0F172A]">
-      <Canvas camera={{ position: [0, 0, 10], fov: 50 }}>
-        <ambientLight intensity={0.5} />
-        <spotLight
-          position={[10, 10, 10]}
-          angle={0.15}
-          penumbra={1}
-          intensity={1}
-        />
-        <Logo />
-        <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          maxPolarAngle={Math.PI / 2}
-          minPolarAngle={Math.PI / 2}
-        />
+    <div 
+      className="fixed inset-0 z-[-1]" 
+      onMouseMove={handleMouseMove}
+    >
+      <Canvas
+        gl={{
+          antialias: true,
+          toneMapping: THREE.ACESFilmicToneMapping,
+          outputEncoding: THREE.sRGBEncoding,
+        }}
+      >
+        <Scene mousePosition={mousePosition} />
       </Canvas>
     </div>
   );

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import type { FC } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
+import { motion } from "framer-motion";
 
 const Service: FC = () => {
     const services = [
@@ -16,7 +17,7 @@ const Service: FC = () => {
             image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072"
         },
         {
-            title: "Tranportation",
+            title: "Transportation",
             description: "Streamline your supply chain with our reliable resource transportation services, specializing in metals and industrial materials.",
             image: "https://images.unsplash.com/photo-1526498460520-4c246339dccb?q=80&w=2070"
         },
@@ -57,65 +58,116 @@ const Service: FC = () => {
     }, [emblaApi, onSelect, onScroll]);
 
     return (
-        <div className="min-h-screen relative px-5">
+        <motion.div 
+            className="min-h-screen relative px-2 sm:px-5"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.8 }}
+        >
             <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
             
-            <div className="relative z-10 max-w-5xl mx-auto px-6 py-24">
-                <div className="text-center mb-3">
-                    <h2 className="text-5xl font-bold text-white mb-2">Our Services</h2>
-                    <p className="text-2xl text-gray-300">Discover what we can do for you</p>
-                </div>
+            <div className="relative z-10 max-w-5xl mx-auto px-2 sm:px-6 py-12 sm:py-24">
+                <motion.div 
+                    className="text-center mb-3"
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: false }}
+                    transition={{ duration: 0.6 }}
+                >
+                    <h2 className="text-3xl sm:text-5xl font-bold text-white mb-2">Our Services</h2>
+                    <p className="text-lg sm:text-2xl text-gray-300">Discover what we can do for you</p>
+                </motion.div>
 
-                <div className="relative mt-12">
-                    <div className="overflow-hidden rounded-xl" ref={emblaRef}>
+                <motion.div 
+                    className="relative mt-3"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: false }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                    <div className="overflow-hidden rounded-xl relative" ref={emblaRef}>
                         <div className="flex">
                             {services.map((service, index) => (
-                                <div 
+                                <motion.div 
                                     key={index} 
                                     className="flex-[0_0_100%] min-w-0 pl-4"
+                                    initial={{ opacity: 0, x: 50 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: false }}
+                                    transition={{ duration: 0.6, delay: index * 0.1 }}
                                 >
-                                    <div className="relative h-[70vh] overflow-hidden rounded-xl">
-                                        <div 
+                                    <div className="relative h-[50vh] sm:h-[70vh] overflow-hidden rounded-xl">
+                                        <motion.div 
                                             className="absolute inset-0 bg-cover bg-center"
                                             style={{ backgroundImage: `url(${service.image})` }}
+                                            whileHover={{ scale: 1.05 }}
+                                            transition={{ duration: 0.4 }}
                                         />
                                         <div className="absolute inset-0 bg-black bg-opacity-50" />
-                                        <div className="relative h-full flex flex-col justify-end p-12">
-                                            <h3 className="text-4xl font-bold text-white mb-6">{service.title}</h3>
-                                            <p className="text-xl text-gray-200 max-w-2xl">{service.description}</p>
+                                        <div className="relative h-full flex flex-col justify-end p-4 sm:p-12">
+                                            <motion.h3 
+                                                className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-6"
+                                                initial={{ opacity: 0, y: 20 }}
+                                                whileInView={{ opacity: 1, y: 0 }}
+                                                viewport={{ once: false }}
+                                                transition={{ duration: 0.4, delay: 0.2 }}
+                                            >
+                                                {service.title}
+                                            </motion.h3>
+                                            <motion.p 
+                                                className="text-sm sm:text-xl text-gray-200 max-w-2xl"
+                                                initial={{ opacity: 0, y: 20 }}
+                                                whileInView={{ opacity: 1, y: 0 }}
+                                                viewport={{ once: false }}
+                                                transition={{ duration: 0.4, delay: 0.3 }}
+                                            >
+                                                {service.description}
+                                            </motion.p>
                                         </div>
                                     </div>
-                                </div>
+                                </motion.div>
                             ))}
                         </div>
+
+                        {/* Navigation Buttons */}
+                        <motion.button
+                            onClick={scrollPrev}
+                            disabled={!prevBtnEnabled}
+                            className={`absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-1 sm:p-2 rounded-full bg-white/10 backdrop-blur-sm transition-all duration-200 ${prevBtnEnabled ? 'text-white hover:bg-white/30 active:bg-white/40' : 'text-gray-500 cursor-not-allowed opacity-50'}`}
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                        >
+                            <ChevronLeftIcon className="w-4 h-4 sm:w-6 sm:h-6" />
+                        </motion.button>
+                        
+                        <motion.button
+                            onClick={scrollNext}
+                            disabled={!nextBtnEnabled}
+                            className={`absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-1 sm:p-2 rounded-full bg-white/10 backdrop-blur-sm transition-all duration-200 ${nextBtnEnabled ? 'text-white hover:bg-white/30 active:bg-white/40' : 'text-gray-500 cursor-not-allowed opacity-50'}`}
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                        >
+                            <ChevronRightIcon className="w-4 h-4 sm:w-6 sm:h-6" />
+                        </motion.button>
                     </div>
 
                     {/* Progress Bar */}
-                    <div className="relative mt-4 h-1 bg-gray-600/30 rounded-full overflow-hidden">
+                    <motion.div 
+                        className="relative mt-4 h-1 bg-gray-600/30 rounded-full overflow-hidden"
+                        initial={{ scaleX: 0 }}
+                        whileInView={{ scaleX: 1 }}
+                        viewport={{ once: false }}
+                        transition={{ duration: 0.6 }}
+                    >
                         <div 
                             className="absolute top-0 left-0 h-full bg-white transition-all duration-200 ease-out rounded-full"
                             style={{ width: `${scrollProgress}%` }}
                         />
-                    </div>
-
-                    <button
-                        onClick={scrollPrev}
-                        disabled={!prevBtnEnabled}
-                        className={`absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-white/30 backdrop-blur-sm hover:bg-white/40 transition-all z-10 ${!prevBtnEnabled ? 'opacity-50 cursor-not-allowed' : ''}`}
-                    >
-                        <ChevronLeftIcon className="w-6 h-6 text-white" />
-                    </button>
-
-                    <button
-                        onClick={scrollNext}
-                        disabled={!nextBtnEnabled}
-                        className={`absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-white/30 backdrop-blur-sm hover:bg-white/40 transition-all z-10 ${!nextBtnEnabled ? 'opacity-50 cursor-not-allowed' : ''}`}
-                    >
-                        <ChevronRightIcon className="w-6 h-6 text-white" />
-                    </button>
-                </div>
+                    </motion.div>
+                </motion.div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

@@ -3,6 +3,7 @@ import Contact from "./Contact";
 import About from "./About";
 import Branch from "./Branch";
 import Service from "./Service";
+import Logo3D from "../components/Logo3D";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 
@@ -12,6 +13,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="bg-background text-foreground">
+      <Logo3D />
 
       {/* Sections */}
       <section
@@ -89,8 +91,8 @@ const Home: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <footer className="w-full py-4 bg-card text-center">
-        <p className="text-sm">&copy; 2024 Your Company Name. All rights reserved.</p>
+      <footer className="w-full py-4 bg-[#1B2A4A] text-center">
+        <p className="text-sm text-white">&copy; 2024 A.V.M Enterprises. All rights reserved.</p>
       </footer>
     </div>
   );
