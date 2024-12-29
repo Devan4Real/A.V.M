@@ -1,63 +1,150 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Button } from "@/components/ui/button";
 
 const StickyNavbar: React.FC = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <nav className="sticky top-0 bg-[#1B2A4A] shadow-md z-50 py-0">
-      <div className="flex items-center justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14">
-          <div className="flex items-center">
-            <div className="text-xl font-bold text-white">MyLogo</div>
-            <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-40 pl-40">
-                <a
-                  href="#home"
-                  className="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Home
-                </a>
-                <a
-                  href="#about"
-                  className="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  About
-                </a>
-                <a
-                  href="#services"
-                  className="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Services
-                </a>
-                <a
-                  href="#contact"
-                  className="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Contact
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="md:hidden">
-            <button className="text-white hover:text-gray-200 focus:outline-none focus:text-gray-200">
-              <svg
-                className="h-6 w-6"
-                stroke="currentColor"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            </button>
+    <nav className="fixed top-0 left-0 right-0 bg-[#1B2A4A] shadow-md z-50 py-2">
+      <div className="flex items-center justify-between w-full px-6">
+        <div className="text-xl font-bold text-white">
+          AVM Enterprises
+        </div>
+        
+        {/* Desktop navigation */}
+        <div className="hidden md:flex items-center justify-center flex-1 mx-24">
+          <div className="flex items-center gap-20">
+            <Button
+              onClick={() => scrollToSection('home')}
+              variant="ghost"
+              className="text-white hover:text-gray-200 h-auto py-2"
+            >
+              Home
+            </Button>
+            <Button
+              onClick={() => scrollToSection('services')}
+              variant="ghost"
+              className="text-white hover:text-gray-200 h-auto py-2"
+            >
+              Services
+            </Button>
+            <Button
+              onClick={() => scrollToSection('branch')}
+              variant="ghost"
+              className="text-white hover:text-gray-200 h-auto py-2"
+            >
+              Branches
+            </Button>
+            <Button
+              onClick={() => scrollToSection('about')}
+              variant="ghost"
+              className="text-white hover:text-gray-200 h-auto py-2"
+            >
+              About
+            </Button>
+            <Button
+              onClick={() => scrollToSection('contact')}
+              variant="ghost"
+              className="text-white hover:text-gray-200 h-auto py-2"
+            >
+              Contact
+            </Button>
           </div>
         </div>
+
+        {/* Space for logo on the right */}
+        <div className="w-12 h-12"></div>
+
+        {/* Mobile menu button */}
+        <div className="md:hidden">
+          <Button 
+            variant="ghost" 
+            className="text-white h-auto py-2"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <svg
+              className="h-6 w-6"
+              stroke="currentColor"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </Button>
+        </div>
       </div>
+
+      {/* Mobile menu dropdown */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden bg-[#1B2A4A] px-4 py-2">
+          <div className="flex flex-col space-y-4">
+            <Button
+              onClick={() => {
+                scrollToSection('home');
+                setIsMobileMenuOpen(false);
+              }}
+              variant="ghost"
+              className="text-white hover:text-gray-200 w-full text-left"
+            >
+              Home
+            </Button>
+            <Button
+              onClick={() => {
+                scrollToSection('services');
+                setIsMobileMenuOpen(false);
+              }}
+              variant="ghost"
+              className="text-white hover:text-gray-200 w-full text-left"
+            >
+              Services
+            </Button>
+            <Button
+              onClick={() => {
+                scrollToSection('branch');
+                setIsMobileMenuOpen(false);
+              }}
+              variant="ghost"
+              className="text-white hover:text-gray-200 w-full text-left"
+            >
+              Branches
+            </Button>
+            <Button
+              onClick={() => {
+                scrollToSection('about');
+                setIsMobileMenuOpen(false);
+              }}
+              variant="ghost"
+              className="text-white hover:text-gray-200 w-full text-left"
+            >
+              About
+            </Button>
+            <Button
+              onClick={() => {
+                scrollToSection('contact');
+                setIsMobileMenuOpen(false);
+              }}
+              variant="ghost"
+              className="text-white hover:text-gray-200 w-full text-left"
+            >
+              Contact
+            </Button>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };
 
 export default StickyNavbar;
-

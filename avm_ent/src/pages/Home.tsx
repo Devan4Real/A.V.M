@@ -1,4 +1,7 @@
 import React from "react";
+import Contact from "./Contact";
+import About from "./About";
+import Branch from "./Branch";
 
 const Home: React.FC = () => {
   return (
@@ -7,39 +10,40 @@ const Home: React.FC = () => {
       {/* Sections */}
       <section
         id="home"
-        className="h-screen flex items-center justify-center bg-background"
+        className="h-screen flex items-center justify-center bg-black bg-opacity-20"
       >
-        <h1 className="text-5xl font-bold">Welcome to Our SPA</h1>
-      </section>
-
-      <section
-        id="about"
-        className="h-screen flex flex-col items-center justify-center bg-card"
-      >
-        <h1 className="text-4xl font-bold">About Us</h1>
-        <p className="text-lg mt-4 text-center">
-          Learn more about what we do and why we do it.
-        </p>
+        <h1 className="text-5xl font-bold text-white">Welcome to AVM Enterprises</h1>
       </section>
 
       <section
         id="services"
-        className="h-screen flex flex-col items-center justify-center bg-muted"
+        className="h-screen flex flex-col items-center justify-center bg-black bg-opacity-20"
       >
-        <h1 className="text-4xl font-bold">Our Services</h1>
-        <p className="text-lg mt-4 text-center">
+        <h1 className="text-4xl font-bold text-white">Our Services</h1>
+        <p className="text-lg mt-4 text-center text-white">
           Discover the amazing services we offer.
         </p>
       </section>
 
       <section
-        id="contact"
-        className="h-screen flex flex-col items-center justify-center bg-accent"
+        id="branch"
+        className="h-screen flex flex-col items-center justify-center bg-black bg-opacity-20"
       >
-        <h1 className="text-4xl font-bold">Contact Us</h1>
-        <p className="text-lg mt-4 text-center">
-          Get in touch with us for more information.
-        </p>
+        <Branch />
+      </section>
+
+      <section
+        id="about"
+        className="h-screen flex flex-col items-center justify-center bg-black bg-opacity-20"
+      >
+        <About />
+      </section>
+
+      <section
+        id="contact"
+        className="h-screen flex flex-col items-center justify-center bg-black bg-opacity-20"
+      >
+        <Contact />
       </section>
 
       {/* Footer */}
@@ -51,4 +55,3 @@ const Home: React.FC = () => {
 };
 
 export default Home;
-
