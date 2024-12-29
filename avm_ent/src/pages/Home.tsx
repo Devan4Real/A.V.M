@@ -2,8 +2,14 @@ import React from "react";
 import Contact from "./Contact";
 import About from "./About";
 import Branch from "./Branch";
+import Service from "./Service";
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
 
 const Home: React.FC = () => {
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.5 });
+
   return (
     <div className="bg-background text-foreground">
 
@@ -12,17 +18,53 @@ const Home: React.FC = () => {
         id="home"
         className="h-screen flex items-center justify-center bg-black bg-opacity-20"
       >
-        <h1 className="text-5xl font-bold text-white">Welcome to AVM Enterprises</h1>
+        <div ref={ref} className="flex flex-col items-center justify-center">
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-4">
+            <motion.span
+              initial={{ x: -200, opacity: 0 }}
+              animate={isInView ? { x: 0, opacity: 1 } : { x: -200, opacity: 0 }}
+              transition={{ 
+                duration: 1.2, 
+                ease: [0.22, 1, 0.36, 1],
+                delay: 0.3 
+              }}
+              className="text-4xl lg:text-6xl font-bold text-white whitespace-nowrap"
+            >
+              Welcome to
+            </motion.span>
+            <motion.span
+              initial={{ x: 200, opacity: 0 }}
+              animate={isInView ? { x: 0, opacity: 1 } : { x: 200, opacity: 0 }}
+              transition={{ 
+                duration: 1.2, 
+                ease: [0.22, 1, 0.36, 1],
+                delay: 0.5 
+              }}
+              className="text-4xl lg:text-6xl font-bold text-white whitespace-nowrap"
+            >
+              A.V.M Enterprises
+            </motion.span>
+          </div>
+          <motion.p
+            initial={{ y: 40, opacity: 0 }}
+            animate={isInView ? { y: 0, opacity: 1 } : { y: 40, opacity: 0 }}
+            transition={{ 
+              duration: 1, 
+              ease: [0.22, 1, 0.36, 1],
+              delay: 0.8 
+            }}
+            className="text-xl mt-8 text-gray-300 text-center max-w-2xl px-4"
+          >
+            Your trusted partner in construction and infrastructure solutions.
+          </motion.p>
+        </div>
       </section>
 
       <section
         id="services"
         className="h-screen flex flex-col items-center justify-center bg-black bg-opacity-20"
       >
-        <h1 className="text-4xl font-bold text-white">Our Services</h1>
-        <p className="text-lg mt-4 text-center text-white">
-          Discover the amazing services we offer.
-        </p>
+        <Service />
       </section>
 
       <section
