@@ -12,7 +12,7 @@ const Home: React.FC = () => {
   const isInView = useInView(ref, { once: false, amount: 0.5 });
 
   return (
-    <div className="bg-background text-foreground">
+    <div id="container3D" className="bg-background text-foreground">
       <Logo3D />
 
       {/* Sections */}

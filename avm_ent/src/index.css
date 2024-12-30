@@ -4,7 +4,7 @@
 
 body {
   @apply m-0 font-serif antialiased text-[#C4A484];
-  background-image: url('/Bg.jpeg') !important;
+
   background-position: center !important;
   background-size: cover !important;
   background-repeat: no-repeat !important;

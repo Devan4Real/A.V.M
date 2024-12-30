@@ -1,84 +1,107 @@
-import React, { useRef, useEffect } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useGLTF } from '@react-three/drei';
+import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import {Environment } from '@react-three/drei';
-
-interface MousePosition {
-  x: number;
-  y: number;
-}
-
-function Model({ mousePosition }) {
-  const gltf = useGLTF('/AVM-logo.glb');
-  const modelRef = useRef();
-
-  // Fix material encoding
-  useEffect(() => {
-    gltf.scene.traverse((child) => {
-      if (child.isMesh && child.material) {
-        child.material.side = THREE.DoubleSide; // Optional: If faces are missing
-        if (child.material.map) {
-          child.material.map.encoding = THREE.sRGBEncoding;
-        }
-        if (child.material.emissiveMap) {
-          child.material.emissiveMap.encoding = THREE.sRGBEncoding;
-        }
-      }
-    });
-  }, [gltf]);
-
-  useFrame(() => {
-    if (modelRef.current) {
-      modelRef.current.rotation.x = mousePosition.y * 0.1;
-      modelRef.current.rotation.y = mousePosition.x * 0.1;
-    }
-  });
-
-  return <primitive object={gltf.scene} ref={modelRef} />;
-}
-
-function Scene({ mousePosition }) {
-  const { camera } = useThree();
-
-  useEffect(() => {
-    camera.position.z = 5;
-  }, [camera]);
-
-  return (
-    <>
-      <ambientLight intensity={0.5} />
-      <pointLight position={[10, 10, 10]} />
-      <Environment preset="sunset" />
-      <Model mousePosition={mousePosition} />
-    </>
-  );
-}
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 export default function Logo3D() {
-  const [mousePosition, setMousePosition] = React.useState<MousePosition>({ x: 0, y: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    if (!containerRef.current) return;
 
-  const handleMouseMove = (event: React.MouseEvent) => {
-    setMousePosition({
-      x: (event.clientX / window.innerWidth) * 2 - 1,
-      y: -(event.clientY / window.innerHeight) * 2 + 1,
-    });
-  };
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    camera.position.z = 5;
+
+    const renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    containerRef.current.appendChild(renderer.domElement);
+
+    // Lighting
+    const topLight = new THREE.DirectionalLight(0xffffff, 1);
+    topLight.position.set(500, 500, 500);
+    topLight.castShadow = true;
+    scene.add(topLight);
+
+    const ambientLight = new THREE.AmbientLight(0x333333, 1);
+    scene.add(ambientLight);
+
+    // Mouse tracking
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    
+    let object: THREE.Group;
+
+    // Load the model
+    const loader = new GLTFLoader();
+    loader.load(
+      '/AVM-logo.glb',
+      (gltf) => {
+        object = gltf.scene;
+        // Scale adjusted if needed
+        object.scale.set(1.2, 1.2, 1.2);
+        object.position.set(0, -0.5, 0);
+        scene.add(object);
+      },
+      (progress) => {
+        console.log((progress.loaded / progress.total * 100) + '% loaded');
+      },
+      (error) => {
+        console.error('Error loading model:', error);
+      }
+    );
+
+    function animate() {
+      requestAnimationFrame(animate);
+      
+      if (object) {
+        // Reduced movement range significantly
+        const targetRotationY = -0.5 + (mouseX / window.innerWidth) * 1; // Reduced from -3/3 to -0.5/1
+        const targetRotationX = -0.3 + (mouseY * 0.6) / window.innerHeight; // Reduced from -1.2/2.5 to -0.3/0.6
+        
+        // Slower interpolation for smoother movement
+        object.rotation.y += (targetRotationY - object.rotation.y) * 0.05; // Reduced from 0.1 to 0.05
+        object.rotation.x += (targetRotationX - object.rotation.x) * 0.05;
+      }
+      
+      renderer.render(scene, camera);
+    }
+
+    function handleMouseMove(event: MouseEvent) {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+    }
+
+    function handleResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('resize', handleResize);
+
+    animate();
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('resize', handleResize);
+      if (containerRef.current) {
+        containerRef.current.removeChild(renderer.domElement);
+      }
+      scene.clear();
+    };
+  }, []);
 
   return (
     <div 
-      className="fixed inset-0 z-[-1]" 
-      onMouseMove={handleMouseMove}
-    >
-      <Canvas
-        gl={{
-          antialias: true,
-          toneMapping: THREE.ACESFilmicToneMapping,
-          outputEncoding: THREE.sRGBEncoding,
-        }}
-      >
-        <Scene mousePosition={mousePosition} />
-      </Canvas>
-    </div>
+      ref={containerRef}
+      className="fixed inset-0 z-[-1]"
+      style={{ touchAction: 'none' }}
+    />
   );
 }

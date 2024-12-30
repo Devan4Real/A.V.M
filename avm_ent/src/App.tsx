@@ -7,16 +7,15 @@ function App() {
   return (
     <Router>
       <div
-        className="min-h-screen w-full relative z-0"
+        className="min-h-screen w-full relative z-0 bg-black"
         style={{
           color: 'white',
-          paddingTop: '3rem'
+          paddingTop: '2.5rem'
         }}
       >
         <StickyNavbar />
         <Routes>
           <Route path="/" element={<Home />} />
-
         </Routes>
       </div>
     </Router>
