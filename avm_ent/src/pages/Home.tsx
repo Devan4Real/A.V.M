@@ -22,7 +22,7 @@ const Home: React.FC = () => {
           id="home"
           className="h-screen flex flex-col items-center justify-center relative"
         >
-          <div ref={ref} className="text-center px-4 z-30 flex flex-col items-center">
+          <div ref={ref} className="text-center px-4 z-30 flex flex-col items-center justify-center h-full py-20">
             <motion.h1
               initial={{ opacity: 0, y: -50 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
@@ -31,11 +31,10 @@ const Home: React.FC = () => {
                 ease: [0.22, 1, 0.36, 1],
                 delay: 0.3 
               }}
-              className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight"
+              className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-40"
             >
               Welcome to
             </motion.h1>
-
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
@@ -44,7 +43,7 @@ const Home: React.FC = () => {
                 ease: "easeOut",
                 delay: 0.5
               }}
-              className="flex flex-col items-center justify-center mt-2"
+              className="flex flex-col items-center justify-center gap-10"
             >
               <motion.span
                 initial={{ opacity: 0, y: 50 }}
@@ -54,22 +53,10 @@ const Home: React.FC = () => {
                   ease: "easeOut",
                   delay: 0.6
                 }}
-                className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-300 tracking-tight"
+                className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-300 tracking-tight mt-40"
               >
                 Enterprises
               </motion.span>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-              transition={{ 
-                duration: 1, 
-                ease: "easeOut",
-                delay: 0.5
-              }}
-              className="flex flex-col items-center justify-center mt-8"
-            >
               <motion.p
                 initial={{ opacity: 0, y: 50 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
@@ -78,7 +65,7 @@ const Home: React.FC = () => {
                   ease: "easeOut",
                   delay: 0.7
                 }}
-                className="mt-4 max-w-2xl text-lg md:text-xl text-gray-300 text-center px-4 leading-relaxed"
+                className="max-w-2xl text-lg md:text-xl text-gray-300 text-center px-4 leading-relaxed mt-13"
               >
                 Pioneering Construction and Infrastructure Solutions
                 <br />
