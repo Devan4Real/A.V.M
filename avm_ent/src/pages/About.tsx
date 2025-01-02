@@ -10,7 +10,7 @@ const About = () => {
   };
 
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen relative max-w-5xl mx-auto">
       <div 
         className="absolute inset-0 bg-[url('/about-bg.jpg')] bg-cover bg-center"
         style={{
@@ -26,7 +26,7 @@ const About = () => {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto"
         >
-          <h1 className="text-5xl font-bold mb-12 text-white text-center">About A.V.M Enterprises</h1>
+          <h1 className="text-5xl font-bold mb-8 text-white text-center">About A.V.M Enterprises</h1>
           
           <div className="grid gap-8">
             <motion.div
@@ -84,4 +84,3 @@ const About = () => {
 };
 
 export default About;
-

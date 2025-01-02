@@ -29,9 +29,9 @@ const Branch: React.FC = () => {
       <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
       
       {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 py-24">
+      <div className="relative z-10 max-w-5xl mx-auto mt-5 px-3 py-20">
         <motion.h1 
-          className="text-5xl font-bold text-center mb-16 text-white"
+          className="text-5xl font-bold text-center mb-12 text-white"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false }}
