@@ -59,14 +59,12 @@ const Service: FC = () => {
 
     return (
         <motion.div 
-            className="min-h-screen relative px-2 sm:px-5"
+            className="w-full h-full flex flex-col justify-center px-2 sm:px-5"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: false }}
             transition={{ duration: 0.8 }}
         >
-            <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
-            
             <div className="relative z-10 max-w-5xl mx-auto px-2 sm:px-6 py-12 sm:py-20">
                 <motion.div 
                     className="text-center mb-3"
@@ -75,7 +73,7 @@ const Service: FC = () => {
                     viewport={{ once: false }}
                     transition={{ duration: 0.6 }}
                 >
-                    <h2 className="text-3xl sm:text-5xl font-bold text-white -mt-3mb-2">Our Services</h2>
+                    <h2 className="text-3xl sm:text-5xl font-bold text-white mb-2">Our Services</h2>
                     <p className="text-lg sm:text-2xl text-gray-300">Discover what we can do for you</p>
                 </motion.div>
 
@@ -97,7 +95,7 @@ const Service: FC = () => {
                                     viewport={{ once: false }}
                                     transition={{ duration: 0.6, delay: index * 0.1 }}
                                 >
-                                    <div className="relative h-[50vh] sm:h-[70vh] overflow-hidden rounded-xl">
+                                    <div className="relative h-[50vh] sm:h-[60vh] overflow-hidden rounded-xl">
                                         <motion.div 
                                             className="absolute inset-0 bg-cover bg-center"
                                             style={{ backgroundImage: `url(${service.image})` }}
@@ -172,3 +170,4 @@ const Service: FC = () => {
 };
 
 export default Service;
+
