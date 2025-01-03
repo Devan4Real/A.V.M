@@ -26,15 +26,15 @@ const Branch: React.FC = () => {
       transition={{ duration: 0.8 }}
     >
       <motion.h1 
-        className="text-4xl sm:text-5xl font-bold text-center mb-12 text-white"
+        className="text-4xl sm:text-5xl font-bold text-center -mt-8 mb-12 text-white"
         initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: -5 }}
         viewport={{ once: false }}
         transition={{ duration: 0.6 }}
       >
         Our Branches
       </motion.h1>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 -mt-8 max-w-6xl mx-auto">
         {Object.entries(branchData).map(([id, branch], index) => (
           <motion.div 
             key={id} 

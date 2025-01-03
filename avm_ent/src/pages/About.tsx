@@ -17,18 +17,21 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false }}
           transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto"
+          className="max-w-5xl mx-auto" // Changed from max-w-4xl to max-w-6xl
         >
-          <h1 className="text-4xl sm:text-5xl font-bold mb-8 sm:mb-12 text-white text-center">About A.V.M Enterprises</h1>
+          <h1 className="text-3xl sm:text-5xl font-bold -mt-12 mb-3 sm:mb-12 text-white text-center">
+            About A.V.M Enterprises
+          </h1>
           
-          <div className="grid gap-8">
+          <div className="grid gap-4 w-full"> {/* Added w-full here */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: false }}
               transition={{ duration: 0.6, delay: 0.2 }}
+              className="w-full" // Added w-full
             >
-              <Card className="bg-black/50 border-gray-800 backdrop-blur-sm">
+              <Card className="bg-black/50 border-gray-800 backdrop-blur-sm w-full"> {/* Added w-full */}
                 <CardContent className="p-6">
                   <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-white">Our Story</h2>
                   <p className="mb-4 text-gray-200 text-base sm:text-lg">
@@ -43,8 +46,9 @@ const About = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: false }}
               transition={{ duration: 0.6, delay: 0.4 }}
+              className="w-full" // Added w-full
             >
-              <Card className="bg-black/50 border-gray-800 backdrop-blur-sm">
+              <Card className="bg-black/50 border-gray-800 backdrop-blur-sm w-full"> {/* Added w-full */}
                 <CardContent className="p-6">
                   <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-white">Our Journey</h2>
                   <p className="mb-4 text-gray-200 text-base sm:text-lg">
@@ -59,8 +63,9 @@ const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
               transition={{ duration: 0.6, delay: 0.6 }}
+              className="w-full" // Added w-full
             >
-              <Card className="bg-black/50 border-gray-800 backdrop-blur-sm">
+              <Card className="bg-black/50 border-gray-800 backdrop-blur-sm w-full"> {/* Added w-full */}
                 <CardContent className="p-6">
                   <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-white">Our Vision</h2>
                   <p className="text-gray-200 text-base sm:text-lg">
@@ -75,5 +80,4 @@ const About = () => {
     </div>
   );
 };
-
 export default About;

@@ -22,6 +22,11 @@ const Service: FC = () => {
             image: "https://images.unsplash.com/photo-1526498460520-4c246339dccb?q=80&w=2070"
         },
         {
+            title: "Cement",
+            description: "Refine your construction processes with our high-quality cement, ensuring optimal performance and durability.",
+            image: "https://images.unsplash.com/photo-1526498460520-4c246339dccb?q=80&w=2070"
+        },
+        {
             title: "Natural Tiling",
             description: "Coming soon....",
             image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=2070"
@@ -65,7 +70,7 @@ const Service: FC = () => {
             viewport={{ once: false }}
             transition={{ duration: 0.8 }}
         >
-            <div className="relative z-10 max-w-5xl mx-auto px-2 sm:px-6 py-12 sm:py-20">
+            <div className="relative z-10 max-w-5xl mx-auto -mt-3 px-2 sm:px-6 py-3 sm:py-20">
                 <motion.div 
                     className="text-center mb-3"
                     initial={{ opacity: 0, y: 50 }}
@@ -73,7 +78,7 @@ const Service: FC = () => {
                     viewport={{ once: false }}
                     transition={{ duration: 0.6 }}
                 >
-                    <h2 className="text-3xl sm:text-5xl font-bold text-white mb-2">Our Services</h2>
+                    <h2 className="text-2xl sm:text-5xl font-bold text-white -mt-8 mb-2">Our Services</h2>
                     <p className="text-lg sm:text-2xl text-gray-300">Discover what we can do for you</p>
                 </motion.div>
 
