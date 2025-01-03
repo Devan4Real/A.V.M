@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Contact from "./Contact";
 import About from "./About";
 import Branch from "./Branch";
@@ -6,120 +6,190 @@ import Service from "./Service";
 import Logo3D from "../components/Logo3D";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
+import { BrickWallIcon as Brick, Truck, Grid, Mountain } from 'lucide-react';
 
 const Home: React.FC = () => {
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: false, amount: 0.5 });
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const currentProgress = window.scrollY;
+      setScrollProgress(currentProgress / totalScroll);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <div id="container3D" className="bg-background text-foreground relative">
-      <div className="fixed inset-0 z-10 pointer-events-none">
-        <Logo3D />
+    <div id="container3D" className="bg-gradient-to-b from-[#1B2A4A] to-black text-foreground relative">
+      {/* Background Pattern */}
+      <div className="fixed inset-0 overflow-hidden">
+        <div className="absolute inset-0">
+          {/* Hexagonal Grid Pattern */}
+          <div className="absolute inset-0 opacity-10"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l25.98 15v30L30 60 4.02 45V15z' fill-rule='evenodd' stroke='%23FFD700' stroke-width='2' fill='none'/%3E%3C/svg%3E")`,
+              backgroundSize: '60px 60px',
+            }}
+          />
+
+          {/* Dynamic gradient overlay based on scroll */}
+          <div 
+            className="absolute inset-0 transition-opacity duration-300"
+            style={{
+              background: `linear-gradient(to bottom, 
+                rgba(27, 42, 74, ${1 - scrollProgress * 0.8}) 0%,
+                rgba(0, 0, 0, ${0.4 + scrollProgress * 0.6}) 100%)`
+            }}
+          />
+        </div>
       </div>
 
-      <div className="relative z-20">
-        <section
-          id="home"
-          className="h-screen flex flex-col items-center justify-center relative"
-        >
-          <div ref={ref} className="text-center px-4 z-30 flex flex-col items-center justify-center h-full py-20">
-            <motion.h1
-              initial={{ opacity: 0, y: -50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
-              transition={{ 
-                duration: 1.2, 
-                ease: [0.22, 1, 0.36, 1],
-                delay: 0.3 
-              }}
-              className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-40"
-            >
-              Welcome to
-            </motion.h1>
+      <div className="relative">
+        {/* Home section with 3D Logo */}
+        <section id="home" className="relative h-screen">
+          {/* 3D Logo Container - Only visible in home section */}
+          <div className="absolute inset-0 z-10">
+            <Logo3D />
+          </div>
+
+          <div className="relative z-20 h-full flex flex-col items-center justify-center pt-20">
+            {/* Welcome Text */}
             <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-              transition={{ 
-                duration: 1, 
-                ease: "easeOut",
-                delay: 0.5
-              }}
-              className="flex flex-col items-center justify-center gap-10"
+              className="absolute top-[20%] left-0 right-0 text-center"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
             >
-              <motion.span
-                initial={{ opacity: 0, y: 50 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-                transition={{ 
-                  duration: 1, 
-                  ease: "easeOut",
-                  delay: 0.6
-                }}
-                className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-300 tracking-tight mt-40"
-              >
-                Enterprises
-              </motion.span>
-              <motion.p
-                initial={{ opacity: 0, y: 50 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-                transition={{ 
-                  duration: 1, 
-                  ease: "easeOut",
-                  delay: 0.7
-                }}
-                className="max-w-2xl text-lg md:text-xl text-gray-300 text-center px-4 leading-relaxed mt-13"
-              >
-                Pioneering Construction and Infrastructure Solutions
-                <br />
-                Transforming Visions into Remarkable Realities
-              </motion.p>
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-2">
+                <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/40">
+                  Welcome to
+                </span>
+              </h1>
             </motion.div>
 
-            {/* Decorative Elements */}
+            {/* Company name and taglines */}
+            <motion.div
+              ref={ref}
+              className="absolute bottom-[15%] left-0 right-0 text-center px-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.5 }}
+            >
+              <div className="space-y-6">
+                <motion.div
+                  className="relative"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 1, delay: 0.8 }}
+                >
+                  <h2 className="text-3xl md:text-4xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] via-[#FDB931] to-[#FFD700]">
+                    Enterprises
+                  </h2>
+                  <div className="absolute inset-0 blur-2xl bg-[#FFD700] opacity-20 -z-10" />
+                </motion.div>
+
+                <div className="space-y-3">
+                  <motion.p
+                    className="text-lg md:text-xl font-medium text-white/90"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1, delay: 1 }}
+                  >
+                    Pioneering Construction and Infrastructure Solutions
+                  </motion.p>
+                  <motion.p
+                    className="text-base md:text-lg text-white/60"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1, delay: 1.2 }}
+                  >
+                    Transforming Visions into Remarkable Realities
+                  </motion.p>
+                </div>
+              </div>
+
+              {/* Service indicators */}
+              <motion.div
+                className="flex justify-center gap-12 mt-8"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1, delay: 1.4 }}
+              >
+                {[
+                  { icon: Brick, label: "Hollow Bricks" },
+                  { icon: Grid, label: "Interlock" },
+                  { icon: Truck, label: "Fleet" },
+                  { icon: Mountain, label: "Natural Tiling" }
+                ].map((service, index) => (
+                  <motion.div
+                    key={index}
+                    className="flex flex-col items-center gap-2"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    <service.icon className="w-8 h-8 text-yellow-500" />
+                    <span className="text-sm text-white/60">{service.label}</span>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </motion.div>
+
+            {/* Scroll indicator */}
             <motion.div
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
-              transition={{ duration: 1, delay: 1 }}
-              className="absolute bottom-10 left-0 right-0 flex justify-center space-x-4"
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 1.6 }}
+              className="absolute bottom-8 left-0 right-0 flex justify-center"
             >
-              <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-              <div className="w-2 h-2 bg-white rounded-full animate-pulse delay-500"></div>
-              <div className="w-2 h-2 bg-white rounded-full animate-pulse delay-1000"></div>
+              <div className="w-6 h-10 border-2 border-yellow-500/20 rounded-full flex justify-center p-2">
+                <motion.div
+                  animate={{
+                    y: [0, 8, 0],
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    repeatType: "loop",
+                  }}
+                  className="w-1 h-1 bg-yellow-500/50 rounded-full"
+                />
+              </div>
             </motion.div>
           </div>
         </section>
 
-        {/* Rest of the sections remain unchanged */}
-        <section
-          id="services"
-          className="h-screen flex flex-col items-center justify-center bg-black bg-opacity-20"
-        >
-          <Service />
-        </section>
+        {/* Other sections */}
+        <div className="relative z-30">
+          <section id="services" className="min-h-screen flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm">
+            <Service />
+          </section>
 
-        <section
-          id="branch"
-          className="h-screen flex flex-col items-center justify-center bg-black bg-opacity-20"
-        >
-          <Branch />
-        </section>
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-yellow-500/20 to-transparent" />
 
-        <section
-          id="about"
-          className="h-screen flex flex-col items-center justify-center bg-black bg-opacity-20"
-        >
-          <About />
-        </section>
+          <section id="branch" className="min-h-screen flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm">
+            <Branch />
+          </section>
 
-        <section
-          id="contact"
-          className="h-screen flex flex-col items-center justify-center bg-black bg-opacity-20"
-        >
-          <Contact />
-        </section>
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-yellow-500/20 to-transparent" />
 
-        {/* Footer */}
-        <footer className="w-full py-4 bg-[#1B2A4A] text-center">
-          <p className="text-sm text-white">&copy; 2024 A.V.M Enterprises. All rights reserved.</p>
-        </footer>
+          <section id="about" className="min-h-screen flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm">
+            <About />
+          </section>
+
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-yellow-500/20 to-transparent" />
+
+          <section id="contact" className="min-h-screen flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm">
+            <Contact />
+          </section>
+
+          <footer className="w-full py-6 bg-gradient-to-r from-[#1B2A4A] to-[#2A3B5C] text-center">
+            <p className="text-sm text-gray-300/90">&copy; 2024 A.V.M Enterprises. All rights reserved.</p>
+          </footer>
+        </div>
       </div>
     </div>
   );

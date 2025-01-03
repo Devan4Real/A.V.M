@@ -7,14 +7,22 @@ const StickyNavbar: React.FC = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const navbar = document.querySelector('nav');
+      const navbarHeight = navbar?.offsetHeight || 0;
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - navbarHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
   };
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-[#1B2A4A] shadow-md z-50 py-2">
-      <div className="flex items-center justify-between w-full px-6">
-        <div className="text-xl font-bold text-white">
+      <div className="flex items-center justify-between w-full px-2">
+        <div className="text-2xl font-bold text-white tracking-wide">
           AVM Enterprises
         </div>
         
@@ -24,43 +32,40 @@ const StickyNavbar: React.FC = () => {
             <Button
               onClick={() => scrollToSection('home')}
               variant="ghost"
-              className="text-white hover:text-gray-200 h-auto py-2"
+              className="text-lg text-white hover:text-gray-200 h-auto py-3 px-6 transition-colors"
             >
               Home
             </Button>
             <Button
               onClick={() => scrollToSection('services')}
               variant="ghost"
-              className="text-white hover:text-gray-200 h-auto py-2"
+              className="text-lg text-white hover:text-gray-200 h-auto py-3 px-6 transition-colors"
             >
               Services
             </Button>
             <Button
               onClick={() => scrollToSection('branch')}
               variant="ghost"
-              className="text-white hover:text-gray-200 h-auto py-2"
+              className="text-lg text-white hover:text-gray-200 h-auto py-3 px-6 transition-colors"
             >
               Branches
             </Button>
             <Button
               onClick={() => scrollToSection('about')}
               variant="ghost"
-              className="text-white hover:text-gray-200 h-auto py-2"
+              className="text-lg text-white hover:text-gray-200 h-auto py-3 px-6 transition-colors"
             >
               About
             </Button>
             <Button
               onClick={() => scrollToSection('contact')}
               variant="ghost"
-              className="text-white hover:text-gray-200 h-auto py-2"
+              className="text-lg text-white hover:text-gray-200 h-auto py-3 px-6 transition-colors"
             >
               Contact
             </Button>
           </div>
         </div>
-
-        {/* Space for logo on the right */}
-        <div className="w-12 h-12"></div>
 
         {/* Mobile menu button */}
         <div className="md:hidden">

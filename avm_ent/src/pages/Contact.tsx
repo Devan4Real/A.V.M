@@ -4,15 +4,8 @@ import { motion } from "framer-motion";
 
 const Contact = () => {
   return (
-    <div className="min-h-screen relative">
-      <div 
-        className="absolute inset-0 bg-[url('/contact-bg.jpg')] bg-cover bg-center"
-        style={{
-          backgroundImage: "linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9))"
-        }}
-      />
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative pt-16">
+    <div className="w-full h-full flex flex-col justify-center px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -20,7 +13,7 @@ const Contact = () => {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto"
         >
-          <h1 className="text-5xl font-bold mb-12 text-white text-center">Contact Us</h1>
+          <h1 className="text-4xl sm:text-5xl font-bold mb-12 text-white text-center">Contact Us</h1>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <motion.div
@@ -31,7 +24,7 @@ const Contact = () => {
             >
               <Card className="bg-black/50 border-gray-800 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle className="text-2xl text-white">Get in Touch</CardTitle>
+                  <CardTitle className="text-xl sm:text-2xl text-white">Get in Touch</CardTitle>
                   <CardDescription className="text-gray-300">
                     We'd love to hear from you. Reach out to us through any of these channels.
                   </CardDescription>
@@ -70,7 +63,7 @@ const Contact = () => {
             >
               <Card className="bg-black/50 border-gray-800 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle className="text-2xl text-white">Send us a Message</CardTitle>
+                  <CardTitle className="text-xl sm:text-2xl text-white">Send us a Message</CardTitle>
                   <CardDescription className="text-gray-300">
                     Fill out the form below and we'll get back to you soon.
                   </CardDescription>
