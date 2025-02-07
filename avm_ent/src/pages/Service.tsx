@@ -78,8 +78,8 @@ const Service: FC = () => {
                     viewport={{ once: false }}
                     transition={{ duration: 0.6 }}
                 >
-                    <h2 className="text-2xl sm:text-5xl font-bold text-white -mt-8 mb-2">Our Services</h2>
-                    <p className="text-lg sm:text-2xl text-gray-300">Discover what we can do for you</p>
+                    <h2 className="text-2xl sm:text-4xl font-bold text-white -mt-8 mb-6">Our Services</h2>
+                    <p className="text-lg sm:text-2xl mb-6 text-gray-300">Discover what we can do for you</p>
                 </motion.div>
 
                 <motion.div 
