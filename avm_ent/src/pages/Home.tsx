@@ -12,6 +12,7 @@ const Home: React.FC = () => {
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: false, amount: 0.5 });
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
